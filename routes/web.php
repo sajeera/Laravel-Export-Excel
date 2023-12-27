@@ -46,10 +46,7 @@ Route::get('/queue', function () {
                         
     }
     \Log::info('in bckground :   started:');
-    
-
-    /////////////////////////////
-
+     
     $process = Process::start('ls -la', 
     function (string $type, string $output){
         echo $output;

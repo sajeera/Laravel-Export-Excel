@@ -20,16 +20,13 @@ class ExportJob implements ShouldQueue
 
     public function handle()
     { 
-        \Log::info('befor  csv:');
         #Adding Excel file export to queue...
 
         (new BillingsExport)->store('public/billings.csv');
         (new BillingsExport)->store('public/billings.xlsx');
-        
-        \Log::info('befor  started:');
-        
-        //$result = Process::run('ls -la');
-        try {
+         
+        try { 
+            #To run the process asynchronously, used start method, but it does not work
             $process = Process::start(Artisan::call('queue:work', 
             [
             '--stop-when-empty' => 1,
@@ -43,21 +40,16 @@ class ExportJob implements ShouldQueue
                     # code...
                     throw($process->latestErrorOutput());
                 }
-            
                 sleep(1);
             }
-            $result = $process->wait();
-            
+            $result = $process->wait(); 
             session('success', 'File is downloaded.!');
-
-        } catch (\Exception $th) {
-            //throw $th;
+        } catch (\Exception $th) { 
             throw($th);
             session('error', 'File cannot be downloaded: ' 
             . $th->getMesage());
                             
         }
-        \Log::info('queuein bckground :   started:');
         return true;
     }  
 }

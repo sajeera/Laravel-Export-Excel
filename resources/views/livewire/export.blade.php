@@ -2,7 +2,7 @@
     <a wire:click="export" class="btn btn-outline-primary">Export</a>
 
     @if($exporting && !$exportFinished)
-        <div class="d-inline" wire:poll="updateExportProgress">Exporting...please wait.</div>
+        <div class="d-inline" wire:poll="updateExportProgress">Exporting as Excel file...</div>
     @endif
 
     @if($exportFinished)
