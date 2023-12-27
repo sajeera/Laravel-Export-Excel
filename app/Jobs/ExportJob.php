@@ -31,7 +31,7 @@ class ExportJob implements ShouldQueue
             [
             '--stop-when-empty' => 1,
                 '--queue' => 'default'
-            ]w;
+            ]
             ));
             while ($process->running()) {
             // echo $process->latestOutput();
