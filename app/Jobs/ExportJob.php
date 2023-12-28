@@ -21,12 +21,14 @@ class ExportJob implements ShouldQueue
     public function handle()
     { 
         #Adding Excel file export to queue...
-
-        (new BillingsExport)->store('public/billings.csv');
         (new BillingsExport)->store('public/billings.xlsx');
-         
+        #Adding csv file export to queue...
+       // (new BillingsExport)->store('public/billings.csv');
         try { 
+           // $process = Process::run(Artisan::call('queue:work'));
+             
             #To run the process asynchronously, used start method, but it does not work
+  
             $process = Process::start(Artisan::call('queue:work', 
             [
             '--stop-when-empty' => 1,
@@ -49,7 +51,7 @@ class ExportJob implements ShouldQueue
             session('error', 'File cannot be downloaded: ' 
             . $th->getMesage());
                             
-        }
+        }   
         return true;
     }  
 }

@@ -12,12 +12,12 @@ class Export extends Component
 {
     public $batchId;
     public $exporting = false;
-    public $exportFinished = false;
+    public $exportFinished = false; 
 
     public function export()
     {
         $this->exporting = true;
-        $this->exportFinished = false;
+        $this->exportFinished = false; 
 
         $batch = Bus::batch([
             new ExportJob(),
@@ -42,13 +42,14 @@ class Export extends Component
         //(new UsersExport)->store('users.xlsx');
     }
 
-    public function updateExportProgress()
+    public function updateExportProgress() 
     {
         $this->exportFinished = $this->exportBatch->finished();
 
         if ($this->exportFinished) {
-            $this->exporting = false;
-        }
+            $this->exporting = false;  
+        }  
+         
     }
 
     public function render()
